@@ -90,8 +90,7 @@ const Listarticles = () => {
       buttons: [
         {
           label: 'Oui',
-          onClick: () =>
-            deletearticle(id)
+          onClick: () => deletearticle(id)
               .then(res => fetchProducts(currentPage, limit))
               .catch(error => console.log(error.message))
         },
@@ -101,9 +100,15 @@ const Listarticles = () => {
       ]
     })
   }
+
   // methods of model
   const handleClose = () => {
     setShow(false);
+  }
+
+  // method modifier un article
+  const modifarticle = (artmodif) => {
+    setArticles(articles.map(art => art._id === artmodif._id ? artmodif : art))
   }
 
   return (
@@ -124,6 +129,7 @@ const Listarticles = () => {
         handleLimitChange={handleLimitChange}
         limit={limit}
         handleDeleteArticle={handleDeleteArticle}
+        modifarticle={modifarticle}
       />
       <Pagination
         handleNext={handleNexPage}

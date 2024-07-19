@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './article.css'
+import Editarticle from './Editarticle';
 
-const Affichearticle = ({ articles , handleLimitChange, limit, handleDeleteArticle  }) => {
+const Affichearticle = ({ articles , handleLimitChange, limit, handleDeleteArticle, modifarticle  }) => {
+    //
+    const [art, setArt] = useState({})
+    const [showe, setShowe] = useState(false);
+
+    const handleShow = () => {
+        setShowe(true)
+    }
+
+    const handleClose = () => {
+        setShowe(false);
+    }
+
+    const handleEdit = (art) => {
+        handleShow()
+        setArt(art)
+    }
+
   return (
     <div>
       <table className='table table-container'>
@@ -29,7 +47,7 @@ const Affichearticle = ({ articles , handleLimitChange, limit, handleDeleteArtic
               <td>{art.qtestock}</td>
               <td>{art.prix}</td>
               <td>
-                <center><button className='edit'>
+                <center><button className='edit' onClick={() => handleEdit(art)}>
                   {' '}
                   <i className='fa-solid fa-pen-to-square'></i>edit
                 </button>
@@ -63,6 +81,13 @@ const Affichearticle = ({ articles , handleLimitChange, limit, handleDeleteArtic
             </tr>
         </tfoot>
       </table>
+      {showe && <Editarticle 
+        showe={showe} 
+        art={art} 
+        handleClose={handleClose}
+        modifarticle={modifarticle}
+        />
+      }
     </div>
   )
 }
